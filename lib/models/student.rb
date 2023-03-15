@@ -1,7 +1,7 @@
 class Student
-    attr_accessor :enrollment_number
+    attr_accessor :student_code
     
-    def initialize(enrollment_number)
-        @enrollment_number = enrollment_number
+    def initialize(student_code)
+        @student_code = student_code
     end
 end

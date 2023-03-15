@@ -15,9 +15,9 @@ if FileService.file_exist?(file_path)
             puts e.message
             exit
         end
-        
+
         if FileService.is_csv_file_formatted?(file_content)
-            puts file_content
+            FileService.cluster_students_by_student_code(file_content)
         end
     end
 end
