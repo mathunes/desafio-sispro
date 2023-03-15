@@ -2,7 +2,14 @@ class FileService
     CSV_HEADER = "MATRICULA,COD_DISCIPLINA,COD_CURSO,NOTA,CARGA_HORARIA,ANO_SEMESTRE"
 
     def self.read_file(file_path)
-        File.read(file_path)
+        begin
+            file = File.open(file_path, "r")
+            file.read
+        rescue IOError
+            raise "An error occurred while reading the file."
+        ensure
+            file.close if file
+        end
     end
 
     def self.file_exist?(file_path)
@@ -25,6 +32,7 @@ class FileService
 
     def self.is_csv_file_formatted?(file_content)
         csv_header = file_content.split("\n")[0].strip
+
         if csv_header == CSV_HEADER
             true
         else
