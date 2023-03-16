@@ -1,6 +1,7 @@
 require_relative "../models/discipline"
 require_relative "../models/enrollment"
 require_relative "../models/student"
+require_relative "csv_parser_service"
 
 class FileService
     CSV_HEADER = "MATRICULA,COD_DISCIPLINA,COD_CURSO,NOTA,CARGA_HORARIA,ANO_SEMESTRE"
@@ -45,29 +46,41 @@ class FileService
         end
     end
 
-    def self.cluster_students_by_student_code(file_content)
-        rows = {}
+    def self.cluster_registers_by_student_code(file_content)
+        clusters = {}
         
         file_content_array = file_content.split("\n").drop(1)
 
         file_content_array.each do |file_content_array_item|
             student_code = file_content_array_item.split(",")[0]
-            discipline_code = file_content_array_item.split(",")[1]
-            course_code = file_content_array_item.split(",")[2]
-            grade = file_content_array_item.split(",")[3]
-            credit_hours = file_content_array_item.split(",")[4]
-            year_semester = file_content_array_item.split(",")[5]
             
-            discipline = Discipline.new(discipline_code, year_semester, credit_hours, course_code)
-            enrollment = Enrollment.new(student_code, discipline_code, grade)
-            student = Student.new(student_code)
+            discipline, enrollment, student = CsvParseService.row_to_objects(file_content_array_item)
 
-            if !rows.has_key?(student_code)
-                rows[student_code] = []
+            if !clusters.has_key?(student_code)
+                clusters[student_code] = []
             end
-            rows[student_code] << [discipline, enrollment, student]
+            clusters[student_code] << [discipline, enrollment, student]
         end
 
-        puts rows
+        clusters
+    end
+
+    def self.cluster_registers_by_course_code(file_content)
+        clusters = {}
+        
+        file_content_array = file_content.split("\n").drop(1)
+
+        file_content_array.each do |file_content_array_item|
+            course_code = file_content_array_item.split(",")[2]
+            
+            discipline, enrollment, student = CsvParseService.row_to_objects(file_content_array_item)
+
+            if !clusters.has_key?(course_code)
+                clusters[course_code] = []
+            end
+            clusters[course_code] << [discipline, enrollment, student]
+        end
+
+        clusters
     end
 end  
