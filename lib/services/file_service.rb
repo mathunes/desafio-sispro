@@ -54,14 +54,17 @@ class FileService
         file_content_array.each do |file_content_array_item|
             student_code = file_content_array_item.split(",")[0]
             
-            discipline, enrollment, student = CsvParseService.row_to_objects(file_content_array_item)
+            begin
+                discipline, enrollment, student = CsvParserService.row_to_objects(file_content_array_item)
 
-            if !clusters.has_key?(student_code)
-                clusters[student_code] = []
+                if !clusters.has_key?(student_code)
+                    clusters[student_code] = []
+                end
+                clusters[student_code] << [discipline, enrollment, student]     
+            rescue ArgumentError => e
+                puts e.message
             end
-            clusters[student_code] << [discipline, enrollment, student]
         end
-
         clusters
     end
 
@@ -73,14 +76,17 @@ class FileService
         file_content_array.each do |file_content_array_item|
             course_code = file_content_array_item.split(",")[2]
             
-            discipline, enrollment, student = CsvParseService.row_to_objects(file_content_array_item)
+            begin
+                discipline, enrollment, student = CsvParserService.row_to_objects(file_content_array_item)
 
-            if !clusters.has_key?(course_code)
-                clusters[course_code] = []
-            end
-            clusters[course_code] << [discipline, enrollment, student]
+                if !clusters.has_key?(course_code)
+                    clusters[course_code] = []
+                end
+                clusters[course_code] << [discipline, enrollment, student]
+            rescue ArgumentError => e
+                puts e.message
+            end 
         end
-
         clusters
     end
 end  
