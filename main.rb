@@ -25,13 +25,13 @@ if FileService.file_exist?(file_path)
             registers_clustered_by_student_code = FileService.cluster_registers_by_student_code(file_content)
 
             registers_clustered_by_student_code.each do |student_code, cluster|
-                cr_by_students["#{student_code}"] = CrCalculator.calculate_cr_by_register_clustered(cluster)
+                cr_by_students["#{student_code}"] = CrCalculatorService.calculate_cr_by_register_clustered(cluster)
             end
 
             registers_clustered_by_course_code = FileService.cluster_registers_by_course_code(file_content)
 
             registers_clustered_by_course_code.each do |course_code, cluster|
-                cr_by_courses["#{course_code}"] = CrCalculator.calculate_cr_by_register_clustered(cluster)
+                cr_by_courses["#{course_code}"] = CrCalculatorService.calculate_cr_by_register_clustered(cluster)
             end
 
             ConsoleView.show_students_cr(cr_by_students)

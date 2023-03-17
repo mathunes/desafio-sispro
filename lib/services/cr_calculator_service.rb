@@ -1,4 +1,4 @@
-class CrCalculator
+class CrCalculatorService
     def self.calculate_cr_by_register_clustered(register)
         total_credit_hours = 0
         sum_of_multiplication_grade_credit_hours = 0

@@ -3,7 +3,7 @@ require_relative "../../lib/models/discipline"
 require_relative "../../lib/models/enrollment"
 require_relative "../../lib/models/student"
 
-RSpec.describe CrCalculator do
+RSpec.describe CrCalculatorService do
     describe ".calculate_cr_by_register_clustered" do
         let(:discipline_1) { Discipline.new("SEN00209", "20171", "60", "4") }
         let(:discipline_2) { Discipline.new("MPS00012", "20181", "30", "56") }
