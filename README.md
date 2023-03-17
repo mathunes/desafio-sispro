@@ -28,7 +28,8 @@ If you wish to contribute to this project, please follow the guidelines below:
 
 1. Fork the repository
 2. Create a new branch: `git checkout -b <my-new-branch>`
-3. Make changes and add them: `git add .`
+3. Make changes and run the test: `rspec` 
+4. Add the changes: `git add .`
 4. Commit your changes: `git commit -m "Add some feature"`
 5. Push to the branch: `git push origin <my-new-branch>`
 6. Submit a pull request to the original repository
