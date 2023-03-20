@@ -1,4 +1,4 @@
-# SISPRO CHALLENGE
+# SISPRO RUBY CHALLENGE
 
 This project aims to calculate the CR of students in a university. The program reads a CSV file containing the grades of students and, according to the university's criteria, calculates the CR of all students and by courses. At the end of the process, the program displays the CR of all students and the average CR of each course.
 
